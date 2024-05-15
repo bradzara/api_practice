@@ -1,9 +1,16 @@
 require "http"
 
-random = HTTP.get("http://www.boredapi.com/api/activity/").parse
-
 def random
-  puts "This is the random choice method"
+  response = HTTP.get("http://www.boredapi.com/api/activity/").to_s
+  data = JSON.parse(response)
+  puts data["activity"]
+  puts "Would you like another option? (Y/N)"
+  user_input = gets.chomp.upcase
+  if user_input == "Y"
+    return random
+  elsif user_input == "N"
+    exit
+  end
 end
 
 def filter
